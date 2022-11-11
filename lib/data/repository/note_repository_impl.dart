@@ -3,7 +3,7 @@ import 'package:clean_architecture_note_app/domain/model/note.dart';
 import 'package:clean_architecture_note_app/domain/repository/note_repository.dart';
 
 class NoteRepositoryImpl implements NoteRepository {
-  final NoteDb db;
+  final NoteDbHelper db;
 
   NoteRepositoryImpl(this.db);
 
