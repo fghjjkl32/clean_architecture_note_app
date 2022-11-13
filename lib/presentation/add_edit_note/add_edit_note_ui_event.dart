@@ -6,4 +6,5 @@ part 'add_edit_note_ui_event.freezed.dart';
 @freezed
 abstract class AddEditNoteUIEvent with _$AddEditNoteUIEvent {
   const factory AddEditNoteUIEvent.saveNote() = SaveNote;
+  const factory AddEditNoteUIEvent.showSnackBar(String message) = ShowSnackBar;
 }
