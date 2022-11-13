@@ -28,7 +28,9 @@ class NotesScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              viewModel.onEvent(const NotesEvent.toggleOrderSection());
+            },
             icon: Icon(Icons.sort),
           ),
         ],
@@ -50,11 +52,16 @@ class NotesScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView(children: [
-          OrderSection(
-            noteOrder: viewModel.state.noteOrder,
-            onOrderChanged: (NoteOrder noteOrder) {
-              viewModel.onEvent(NotesEvent.changeOrder(noteOrder));
-            },
+          AnimatedSwitcher(
+            duration: Duration(milliseconds: 300),
+            child: state.isOrderSectionVisible
+                ? OrderSection(
+                    noteOrder: viewModel.state.noteOrder,
+                    onOrderChanged: (NoteOrder noteOrder) {
+                      viewModel.onEvent(NotesEvent.changeOrder(noteOrder));
+                    },
+                  )
+                : Container(),
           ),
           ...state.notes
               .map(
