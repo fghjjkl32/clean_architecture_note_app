@@ -1,6 +1,8 @@
 import 'package:clean_architecture_note_app/domain/model/note.dart';
+import 'package:clean_architecture_note_app/domain/util/note_order.dart';
 import 'package:clean_architecture_note_app/presentation/add_edit_note/add_edit_note_screen.dart';
 import 'package:clean_architecture_note_app/presentation/notes/components/note_item.dart';
+import 'package:clean_architecture_note_app/presentation/notes/components/order_section.dart';
 import 'package:clean_architecture_note_app/presentation/notes/notes_event.dart';
 import 'package:clean_architecture_note_app/presentation/notes/notes_view_model.dart';
 import 'package:clean_architecture_note_app/ui/colors.dart';
@@ -47,8 +49,14 @@ class NotesScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: ListView(
-          children: state.notes
+        child: ListView(children: [
+          OrderSection(
+            noteOrder: viewModel.state.noteOrder,
+            onOrderChanged: (NoteOrder noteOrder) {
+              viewModel.onEvent(NotesEvent.changeOrder(noteOrder));
+            },
+          ),
+          ...state.notes
               .map(
                 (note) => GestureDetector(
                   onTap: () async {
@@ -86,7 +94,7 @@ class NotesScreen extends StatelessWidget {
                 ),
               )
               .toList(),
-        ),
+        ]),
       ),
     );
   }
